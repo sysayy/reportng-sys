@@ -40,9 +40,13 @@ public final class ReportMetadata
     static final String LOCALE_KEY = PROPERTY_KEY_PREFIX + "locale";
     static final String VELOCITY_LOG_KEY = PROPERTY_KEY_PREFIX + "velocity-log";
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEEE dd MMMM yyyy");
+//    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEEE dd MMMM yyyy");
+    private static Locale locale = new Locale("en", "US");
+    private static final DateFormat DATE_FORMAT = DateFormat.getDateInstance(
+            DateFormat.FULL, locale);
+
     private static final DateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm z");
-    
+
 
     /**
      * The date/time at which this report is being generated.
@@ -195,4 +199,15 @@ public final class ReportMetadata
         }
         return Locale.getDefault();
     }
+
+
+
+
+
+
+
+
+
+
+
 }

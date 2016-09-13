@@ -11,7 +11,7 @@
       #set ($testInstanceName = " ($testResult.testName)")
     #end
     #if ($testResult.method.description && $testResult.method.description.length() > 0)
-      <span class="description" title="$testResult.method.description">$testResult.name$testInstanceName</span>
+          <span class="description" title="$testResult.method.description">$testResult.name$testInstanceName ($testResult.method.description)</span>
     #else
       $testResult.name$testInstanceName
     #end
@@ -42,32 +42,31 @@
     #end
 
     ## Show logger output for the test.
-    #set ($output = $utils.getTestOutput($testResult))
-    #if ($output.size() > 0)
-    <div class="testOutput">
-      #foreach( $line in $output )
-        #if ($meta.shouldEscapeOutput())
-          $utils.escapeHTMLString($line)<br />
-        #else
-          $line
+        #set ($output = $utils.getTestOutput($testResult))
+        #if ($output.size() > 0)
+            <div class="testOutput">
+                #foreach( $line in $output )
+                    #if ($meta.shouldEscapeOutput())
+                        $utils.escapeHTMLString($utils.removeImage($line))<br />
+                    #else
+                        $utils.removeImage($line)<br />
+                    #end
+                #end
+            </div>
         #end
-      #end
-    </div>
-    #end
-##添加截图
     <td class="screenshot">
-      #set ($output = $utils.getTestOutput($testResult))
-      #if ($output.size() > 0)
-          <div class="screenshotimage">
-            #foreach( $line in $output )
-              #if ($meta.shouldEscapeOutput())
-                $utils.escapeHTMLString($utils.getImageString($line))<br />
-              #else
-                $utils.getImageString($line)<br />
-              #end
-            #end
-          </div>
-      #end
+        #set ($output = $utils.getTestOutput($testResult))
+        #if ($output.size() > 0)
+            <div class="screenshotimage">
+                #foreach( $line in $output )
+                    #if ($meta.shouldEscapeOutput())
+                        $utils.escapeHTMLString($utils.getImageString($line))<br />
+                    #else
+                        $utils.getImageString($line)<br />
+                    #end
+                #end
+            </div>
+        #end
     </td>
 
     #if ($testResult.throwable && ( $testResult.status == 2 || $meta.shouldShowExpectedExceptions()))

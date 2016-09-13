@@ -227,7 +227,7 @@ public class ReportNGUtils
 
     public boolean hasSkipException(ITestResult result)
     {
-        return result.getThrowable() instanceof SkipException;
+    	return result.getThrowable() instanceof SkipException;
     }
 
 
@@ -464,6 +464,8 @@ public class ReportNGUtils
 
     public String removeImage(String s)
     {
+
+
         return  s.replaceAll("<img(.*?)/>","");
     }
 

@@ -15,6 +15,8 @@
 //=============================================================================
 package org.uncommons.reportng;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -102,7 +104,8 @@ public abstract class AbstractReporter implements IReporter
                                 String templateName,
                                 VelocityContext context) throws Exception
     {
-        Writer writer = new BufferedWriter(new FileWriter(file));
+        OutputStream out=new FileOutputStream(file);
+        Writer writer = new BufferedWriter(new OutputStreamWriter(out,"utf-8"));
         try
         {
             Velocity.mergeTemplate(classpathPrefix + templateName,
