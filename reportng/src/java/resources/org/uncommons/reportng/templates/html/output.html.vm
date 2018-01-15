@@ -20,9 +20,10 @@
   <div id="log">
     #foreach ($line in $utils.allOutput)
       #if ($meta.shouldEscapeOutput())
-        $utils.escapeHTMLString($line)<br />
+        $utils.escapeHTMLString($line)<br/>
+        <br/>
       #else
-        $line
+        $line<br/>
       #end
     #end
   </div>

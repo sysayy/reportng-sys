@@ -47,33 +47,47 @@
             <div class="testOutput">
                 #foreach( $line in $output )
                     #if ($meta.shouldEscapeOutput())
-                        $utils.escapeHTMLString($utils.removeImage($line))<br />
+                        $utils.escapeHTMLString($utils.removeImage($line))<br/>
                     #else
-                        $utils.removeImage($line)<br />
+                        $utils.removeImage($line)<br/>
                     #end
                 #end
             </div>
         #end
-    <td class="screenshot">
+    <td class="standardScreenshot">
+    #set ($output = $utils.getTestOutput($testResult))
+    #if ($output.size() > 0)
+        <div class="standardScreenshot" >
+            #foreach( $line in $output )
+                #if ($meta.shouldEscapeOutput())
+                    $utils.escapeHTMLString($utils.getImageStandardString($line))<br/>
+                #else
+                    $utils.getImageStandardString($line)<br/>
+                #end
+            #end
+        </div>
+    #end
+</td>
+
+    <td class="testScreenshot">
         #set ($output = $utils.getTestOutput($testResult))
         #if ($output.size() > 0)
-            <div class="screenshotimage">
+            <div class="testScreenshot" >
                 #foreach( $line in $output )
                     #if ($meta.shouldEscapeOutput())
-                        $utils.escapeHTMLString($utils.getImageString($line))<br />
+                        $utils.escapeHTMLString($utils.getImageTestString($line))<br/>
                     #else
-                        $utils.getImageString($line)<br />
+                        $utils.getImageTestString($line)<br/>
                     #end
                 #end
             </div>
         #end
     </td>
-
     #if ($testResult.throwable && ( $testResult.status == 2 || $meta.shouldShowExpectedExceptions()))
-    <a href="javascript:toggleElement('exception-$id', 'block')" title="$messages.getString("clickToExpandCollapse")"><b>$utils.escapeHTMLString( $testResult.throwable.toString() )</b></a><br />
+    <a href="javascript:toggleElement('exception-$id', 'block')" title="$messages.getString("clickToExpandCollapse")"><b>$utils.escapeHTMLString( $testResult.throwable.toString() )</b></a><br/>
     <div class="stackTrace" id="exception-$id">
       #foreach ($element in $testResult.throwable.stackTrace)
-        $utils.escapeHTMLString( $element.toString() )<br />
+        $utils.escapeHTMLString( $element.toString() )<br/>
       #end
       #set ($causes = $utils.getCauses($testResult.throwable))
       #foreach ($throwable in $causes)
@@ -81,7 +95,7 @@
         <b>$messages.getString("causedBy"): </b> <a href="javascript:toggleElement('exception-$id', 'block')" title="Click to expand/collapse">$utils.escapeHTMLString( $throwable.toString() )</a><br />
         <div class="stackTrace" id="exception-$id">
           #foreach ($element in $throwable.stackTrace)
-            $utils.escapeHTMLString($element.toString())<br />
+            $utils.escapeHTMLString($element.toString())<br/>
           #end
         </div>
       #end

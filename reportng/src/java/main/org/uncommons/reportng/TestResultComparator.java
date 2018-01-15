@@ -22,15 +22,23 @@ import org.testng.ITestResult;
  * Comparator for sorting TestNG test results alphabetically by method name.
  * @author Daniel Dyer
  */
+
+/**
+ *  修改 方法执行顺序
+ */
 class TestResultComparator implements Comparator<ITestResult>
 {
     public int compare(ITestResult result1, ITestResult result2)
     {
 //        return result1.getName().compareTo(result2.getName());
+        int longresult2  =0;
         if (result1.getStartMillis()<result2.getStartMillis()) {
-            return -1;
+            longresult2 = -1;
+//            return -1;
         }else {
-            return 1;
+//            return 1;
+            longresult2 = 1;
         }
+        return  longresult2;
     }
 }
